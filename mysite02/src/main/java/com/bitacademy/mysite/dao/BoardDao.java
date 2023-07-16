@@ -269,7 +269,10 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			//3. Statement 준비
-			String sql = "select * from board order by g_no desc, o_no asc limit ?, 5";
+			String sql = "select b.no, b.title, b.content, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.user_no, u.name "
+					+ "from board b, user u "
+					+ "where b.user_no = u.no "
+					+ "order by g_no desc, o_no asc limit ?, 5";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. Binding
@@ -289,8 +292,81 @@ public class BoardDao {
 				vo.setOno(rs.getLong(7));
 				vo.setDepth(rs.getLong(8));
 				vo.setUserNo(rs.getLong(9));
+				vo.setUserName(rs.getString(10));
 				result.add(vo);
 			}
+		}catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			//6. 자원 정리
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public boolean deleteByNo(Long no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			conn = getConnection();
+			//3. Statement 준비
+			String sql = "delete from board where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. Binding
+			pstmt.setLong(1, no);
+			//5. SQL 실행
+			int count = pstmt.executeUpdate();
+			
+			//5. 결과 처리
+			result = count == 1;
+		}catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			//6. 자원 정리
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public boolean update(BoardVo vo) {		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			conn = getConnection();
+			//3. Statement 준비
+			String sql = "update board set title = ?, content = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. Binding
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setLong(3, vo.getNo());
+			//5. SQL 실행
+			int count = pstmt.executeUpdate();
+			
+			//5. 결과 처리
+			result = count == 1;
 		}catch (SQLException e) {
 			System.out.println("Error:" + e);
 		} finally {

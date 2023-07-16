@@ -51,9 +51,25 @@ public class BoardController extends HttpServlet {
 			.getRequestDispatcher("/WEB-INF/views/board/view.jsp")
 			.forward(request, response);
 		}else if("delete".equals(actionName)) {
-			
-		}else if("deleteform".equals(actionName)) {
-			
+			Long no = Long.parseLong(request.getParameter("no"));
+			new BoardDao().deleteByNo(no);
+			response.sendRedirect(request.getContextPath() + "/board");
+		}else if("update".equals(actionName)) {
+			Long no = Long.parseLong(request.getParameter("no"));
+			BoardVo vo = new BoardDao().findByNo(no);
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			vo.setTitle(title);
+			vo.setContent(content);
+			new BoardDao().update(vo);
+			response.sendRedirect(request.getContextPath() + "/board");
+		}else if("updateform".equals(actionName)) {
+			Long no = Long.parseLong(request.getParameter("no"));
+			BoardVo vo = new BoardDao().findByNo(no);
+			request.setAttribute("vo", vo);
+			request
+			.getRequestDispatcher("/WEB-INF/views/board/updateform.jsp")
+			.forward(request, response);
 		}else {
 			/* default action */
 			int selected = 1;

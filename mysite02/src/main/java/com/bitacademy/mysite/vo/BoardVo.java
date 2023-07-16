@@ -10,6 +10,7 @@ public class BoardVo {
 	private Long ono;
 	private Long depth;
 	private Long userNo;
+	private String userName;
 	
 	@Override
 	public String toString() {
@@ -70,5 +71,13 @@ public class BoardVo {
 	}
 	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

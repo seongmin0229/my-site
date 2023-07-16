@@ -1,4 +1,3 @@
-<%@page import="com.bitacademy.mysite.dao.UserDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -39,11 +38,11 @@
 									${vo.title }
 								</a>
 							</td>
-							<td>${vo.userNo }</td>
+							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<c:if test="${authUser.no == vo.userNo }">
-								<td><a href="" class="del">삭제</a></td>
+								<td><a href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></td>
 							</c:if>						
 						</tr>
 					</c:forEach>

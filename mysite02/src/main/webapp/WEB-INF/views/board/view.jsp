@@ -40,8 +40,8 @@
 					<c:if test="${not empty authUser }">
 						<a href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no }">답글달기</a>
 					</c:if>
-					<c:if test="">
-						<a href="">글수정</a>
+					<c:if test="${authUser.no == vo.userNo }">
+						<a href="${pageContext.request.contextPath }/board?a=updateform&no=${vo.no }">글수정</a>
 					</c:if>		
 				</div>
 			</div>
