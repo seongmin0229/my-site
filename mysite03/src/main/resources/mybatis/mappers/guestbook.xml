@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestbook">
+	<select id="findAll" resultType="com.bitacademy.mysite.vo.GuestBookVo">
+		<![CDATA[
+			select no, name, text, post_date as postDate from guestbook order by post_date desc
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="com.bitacademy.mysite.vo.GuestBookVo">
+		<![CDATA[
+			insert into guestbook values(null, #{name }, sha2(#{password }, 256), curdate(), #{text })
+		]]>
+	</insert>
+	
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+			delete from guestbook where no = #{no } and password = sha2(#{password }, 256)
+		]]>
+	</delete>
+</mapper>
