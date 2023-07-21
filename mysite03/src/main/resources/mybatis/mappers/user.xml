@@ -28,7 +28,7 @@
 			</when>
 			<otherwise>
 				<![CDATA[
-					update user set name = #{name }, gender = #{gender }, password = #{password } where no = #{no }
+					update user set name = #{name }, gender = #{gender }, password = sha2(#{password }, 256) where no = #{no }
 				]]>
 			</otherwise>
 		</choose>

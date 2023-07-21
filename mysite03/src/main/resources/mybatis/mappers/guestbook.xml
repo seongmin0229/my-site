@@ -4,7 +4,7 @@
 <mapper namespace="guestbook">
 	<select id="findAll" resultType="com.bitacademy.mysite.vo.GuestBookVo">
 		<![CDATA[
-			select no, name, text, post_date as postDate from guestbook order by post_date desc
+			elect no, name, text, post_date as postDate from guestbook order by post_date desc
 		]]>
 	</select>
 	
@@ -19,4 +19,11 @@
 			delete from guestbook where no = #{no } and password = sha2(#{password }, 256)
 		]]>
 	</delete>
+	<update id="rearrange">
+		<![CDATA[
+			SET @cnt = 0;
+			UPDATE guestbook SET no = @cnt:= @cnt + 1; 
+			ALTER TABLE guestbook AUTO_INCREMENT = 1;
+		]]>
+	</update>
 </mapper>
