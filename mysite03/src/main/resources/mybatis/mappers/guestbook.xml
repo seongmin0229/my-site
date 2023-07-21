@@ -4,7 +4,7 @@
 <mapper namespace="guestbook">
 	<select id="findAll" resultType="com.bitacademy.mysite.vo.GuestBookVo">
 		<![CDATA[
-			elect no, name, text, post_date as postDate from guestbook order by post_date desc
+			select no, name, text, post_date as postDate from guestbook order by post_date desc
 		]]>
 	</select>
 	
@@ -21,9 +21,11 @@
 	</delete>
 	<update id="rearrange">
 		<![CDATA[
+			BEGIN
 			SET @cnt = 0;
 			UPDATE guestbook SET no = @cnt:= @cnt + 1; 
 			ALTER TABLE guestbook AUTO_INCREMENT = 1;
+			END;
 		]]>
 	</update>
 </mapper>

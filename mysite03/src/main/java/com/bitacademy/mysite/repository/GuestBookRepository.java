@@ -18,7 +18,6 @@ public class GuestBookRepository {
 	
 	public List<GuestBookVo> findAll(){
 		return sqlSession.selectList("guestbook.findAll");
-		
 	}
 	
 	public boolean insert(GuestBookVo vo) {
@@ -27,7 +26,7 @@ public class GuestBookRepository {
 		result = 1 == sqlSession.insert("guestbook.insert", vo);
 		
 		if(result) {
-			rearrange();
+//			rearrange();
 		}
 		
 		return result;
@@ -44,7 +43,7 @@ public class GuestBookRepository {
 		result = 1 == sqlSession.delete("guestbook.delete", map);
 		
 		if(result) {
-			rearrange();
+//			rearrange();
 		}
 		
 		return result;
