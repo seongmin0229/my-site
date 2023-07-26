@@ -1,0 +1,68 @@
+#https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.cache
+#에서 찾기
+
+# spring configuration
+spring:
+   application:
+      name: mysite
+      
+   # devtools - live reload
+   devtools:
+      livereload:
+         enabled: true
+         
+   # mvc
+   mvc:
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+         
+   # web
+   web:
+      resources:
+         static-locations: classpath:/assets/
+   
+   # aop      
+   aop:
+      auto: true
+      proxy-target-class: true
+      
+   datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/webdb?charset=utf8?allowMultiQueries=true
+      username: root
+      password: root
+      hikari:
+         minimum-idle: 10
+         maximum-pool: 20
+# mybatis
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+
+# server
+server:
+   port: 8080
+   servlet:
+      context-path: /mysite05
+      charset: utf-8
+      enabled: true
+      
+# logging
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: /${spring.application.name}-log/exception.%i.log.zip
+         max-file-size: 200MB
+         max-history: 10
+   file: /${spring.application.name}-log/exception.log
+   level: 
+      root: INFO
+      com:
+         bitacademy:
+            mysite:
+               exception: ERROR

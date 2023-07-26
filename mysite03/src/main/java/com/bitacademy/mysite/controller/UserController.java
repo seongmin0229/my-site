@@ -42,8 +42,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("logout")
-	public String login(HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+	public String logout(HttpSession session) {
 		// 접근제어
 //		if(authUser == null) {
 //			return "redirect:/";
